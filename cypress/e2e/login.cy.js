@@ -24,13 +24,13 @@ describe('Login Feature', () => {
   });
 
   it('harus berhasil login dan mengarahkan ke halaman utama', () => {
-    // Gunakan email dan password yang BENAR-BENAR ADA di database
-    cy.get('input[type="email"]').type('robot@gmail.com');
-    cy.get('input[type="password"]').type('robot123');
+    // Pakai email dan password yang BARU KAMU REGISTER tadi!
+    cy.get('input[type="email"]').type('dzul.tester100@gmail.com'); 
+    cy.get('input[type="password"]').type('tester100'); 
     cy.get('button[type="submit"]').click();
 
     // Sesuaikan kata 'Logout' dengan tulisan di navigasi aplikasimu.
     // Misalnya kalau di kodemu tulisannya 'Keluar', ganti jadi 'Keluar'.
-    cy.get('button').contains('Logout').should('be.visible');
+    cy.contains('button', 'Keluar').should('be.visible');
   });
 });
