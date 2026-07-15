@@ -31,6 +31,6 @@ describe('Login Feature', () => {
 
     // Sesuaikan kata 'Logout' dengan tulisan di navigasi aplikasimu.
     // Misalnya kalau di kodemu tulisannya 'Keluar', ganti jadi 'Keluar'.
-    cy.contains('button', 'Keluar').should('be.visible');
+    cy.contains('button', 'Logout').should('be.visible');
   });
 });
