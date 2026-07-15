@@ -25,8 +25,8 @@ describe('Login Feature', () => {
 
   it('harus berhasil login dan mengarahkan ke halaman utama', () => {
     // Pakai email dan password yang BARU KAMU REGISTER tadi!
-    cy.get('input[type="email"]').type('dzul.tester100@gmail.com'); 
-    cy.get('input[type="password"]').type('tester100'); 
+    cy.get('input[type="email"]').type('dzul.tester100@gmail.com');
+    cy.get('input[type="password"]').type('tester100');
     cy.get('button[type="submit"]').click();
 
     // Sesuaikan kata 'Logout' dengan tulisan di navigasi aplikasimu.
