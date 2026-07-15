@@ -1,5 +1,28 @@
 describe('Login Feature', () => {
   beforeEach(() => {
+    // 1. Intersep (potong) request API Login dan palsukan hasilnya
+    cy.intercept('POST', '**/login', {
+      status: 'success',
+      message: 'ok',
+      data: {
+        token: 'mock-token-12345',
+      },
+    }).as('loginRequest');
+
+    // 2. Intersep request profil pengguna dan palsukan profilnya
+    cy.intercept('GET', '**/users/me', {
+      status: 'success',
+      message: 'ok',
+      data: {
+        user: {
+          id: 'user-mock',
+          name: 'Robot Tester',
+          email: 'robot@gmail.com',
+          avatar: 'https://generated-image-url.jpg',
+        },
+      },
+    }).as('getProfileRequest');
+
     cy.visit('http://localhost:3000/login');
   });
 
@@ -10,27 +33,36 @@ describe('Login Feature', () => {
   });
 
   it('harus menampilkan pesan error ketika email/password salah', () => {
-    // Skenario Gagal
-    cy.get('input[type="email"]').type('email.salah@example.com');
-    cy.get('input[type="password"]').type('passwordsalah');
+    // Kita paksa API mengembalikan error khusus untuk skenario ini
+    cy.intercept('POST', '**/login', {
+      statusCode: 401,
+      body: {
+        status: 'fail',
+        message: 'email or password is wrong',
+      },
+    });
+
+    cy.get('input[type="email"]').type('salah@gmail.com');
+    cy.get('input[type="password"]').type('salahpass');
     cy.get('button[type="submit"]').click();
 
-    // Asumsi menggunakan window.alert untuk pesan error.
-    // Jika aplikasimu menggunakan elemen HTML untuk pesan error, ganti dengan:
-    // cy.get('.pesan-error').should('be.visible');
+    // Sesuaikan dengan cara aplikasimu menampilkan error (alert/HTML)
     cy.on('window:alert', (text) => {
       expect(text).to.contains('email or password is wrong');
     });
   });
 
   it('harus berhasil login dan mengarahkan ke halaman utama', () => {
-    // Pakai email dan password yang BARU KAMU REGISTER tadi!
-    cy.get('input[type="email"]').type('dzul.tester100@gmail.com');
-    cy.get('input[type="password"]').type('tester100');
+    // Ketik sembarang karena API-nya sudah kita bajak di atas
+    cy.get('input[type="email"]').type('bebas@gmail.com');
+    cy.get('input[type="password"]').type('bebas123');
     cy.get('button[type="submit"]').click();
 
-    // Sesuaikan kata 'Logout' dengan tulisan di navigasi aplikasimu.
-    // Misalnya kalau di kodemu tulisannya 'Keluar', ganti jadi 'Keluar'.
+    // Tunggu sampai intersep API selesai dijalankan
+    cy.wait('@loginRequest');
+    cy.wait('@getProfileRequest');
+
+    // Pastikan tombol Logout muncul di halaman utama
     cy.contains('button', 'Logout').should('be.visible');
   });
 });
