@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../utils/api';
 import { asyncSetAuthUser, setAuthUser } from './authUserSlice';
@@ -45,7 +46,7 @@ describe('asyncSetAuthUser thunk', () => {
     api.login = () => Promise.resolve(fakeTokenResponse);
     api.putAccessToken = jest.fn(); // memantau pemanggilan fungsi simpan token
     api.getOwnProfile = () => Promise.resolve(fakeAuthUserResponse);
-    
+
     // memalsukan fungsi dispatch
     const dispatch = jest.fn();
 
@@ -63,7 +64,7 @@ describe('asyncSetAuthUser thunk', () => {
     // arrange
     // memalsukan api agar selalu gagal
     api.login = () => Promise.reject(fakeErrorResponse);
-    
+
     // memalsukan fungsi dispatch dan window.alert
     const dispatch = jest.fn();
     window.alert = jest.fn();

@@ -61,7 +61,7 @@ describe('threadsReducer', () => {
         totalComments: 0,
       },
     ];
-    
+
     const newThread = {
       id: 'thread-2',
       title: 'Thread Kedua',
@@ -73,7 +73,7 @@ describe('threadsReducer', () => {
       downVotesBy: [],
       totalComments: 0,
     };
-    
+
     const action = addThread(newThread);
 
     // action

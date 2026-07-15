@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../utils/api';
 import { asyncReceiveThreads, receiveThreads } from './threadsSlice';
@@ -42,7 +43,7 @@ describe('asyncReceiveThreads thunk', () => {
     // arrange
     // memalsukan api agar selalu berhasil (resolve)
     api.getAllThreads = () => Promise.resolve(fakeThreadsResponse);
-    
+
     // memalsukan fungsi dispatch
     const dispatch = jest.fn();
 
@@ -59,7 +60,7 @@ describe('asyncReceiveThreads thunk', () => {
     // arrange
     // memalsukan api agar selalu gagal (reject)
     api.getAllThreads = () => Promise.reject(fakeErrorResponse);
-    
+
     // memalsukan fungsi dispatch dan window.alert
     const dispatch = jest.fn();
     window.alert = jest.fn();
