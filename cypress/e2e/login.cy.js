@@ -1,7 +1,7 @@
 describe('Login Feature', () => {
   beforeEach(() => {
     // KITA ARAHKAN ROBOT LANGSUNG KE HALAMAN LOGIN
-    cy.visit('http://localhost:3002/login'); 
+    cy.visit('http://localhost:3000/login'); 
   });
 
   it('harus menampilkan halaman login dengan benar', () => {
